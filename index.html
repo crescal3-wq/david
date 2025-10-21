@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Las Batallas del Rey David: Triunfos y Derrotas</title>
+    <!-- Carga de Tailwind CSS para estilos rápidos y responsivos -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carga de Chart.js para los gráficos de datos -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,10 +14,10 @@
     <style>
         body {
             font-family: 'Lato', sans-serif;
-            background-color: #EDF2F4;
+            background-color: #EDF2F4; /* Gris muy claro */
         }
         h1, h2, h3 {
-            font-family: 'Tinos', serif;
+            font-family: 'Tinos', serif; /* Fuente más clásica para títulos */
         }
         .chart-container {
             position: relative;
@@ -31,6 +33,7 @@
                 height: 400px;
             }
         }
+        /* Estilos de la línea de tiempo */
         .timeline-item::before {
             content: '';
             position: absolute;
@@ -38,7 +41,7 @@
             top: 20px;
             bottom: -20px;
             width: 2px;
-            background-color: #8D99AE;
+            background-color: #8D99AE; /* Gris azulado */
         }
         .timeline-item:last-child::before {
             display: none;
@@ -50,7 +53,7 @@
             height: 18px;
             width: 18px;
             border-radius: 50%;
-            background-color: #D90429;
+            background-color: #D90429; /* Rojo oscuro (Derrota/Pecado) */
             border: 3px solid #EDF2F4;
         }
     </style>
@@ -68,6 +71,7 @@
         </section>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Bloque 1: Victoria contra Goliat -->
             <div class="bg-white rounded-lg shadow-md p-6">
                 <h3 class="text-2xl font-bold text-[#2B2D42] mb-4">El Pastor Guerrero: La Victoria contra Goliat</h3>
                 <p class="mb-6 text-gray-700">La primera y más emblemática victoria de David no fue como rey, sino como un joven pastor. Su fe, no su fuerza, fue su arma principal. Este enfrentamiento estableció el patrón para su futuro militar: la confianza en Dios por encima de la superioridad numérica o armamentística.</p>
@@ -85,6 +89,7 @@
                 </div>
             </div>
 
+            <!-- Bloque 2: Gráfico de Victorias Clave -->
             <div class="bg-white rounded-lg shadow-md p-6">
                 <h3 class="text-2xl font-bold text-[#2B2D42] mb-4">Ascenso al Poder: Victorias Clave</h3>
                  <p class="mb-4 text-gray-700">Una vez ungido rey, David lideró una serie de campañas militares decisivas que expandieron y aseguraron las fronteras de Israel. Este gráfico muestra la escala estimada de sus victorias clave, consolidando su dominio en la región.</p>
@@ -93,6 +98,7 @@
                 </div>
             </div>
 
+            <!-- Bloque 3: La Gran Derrota (Timeline) -->
             <div class="md:col-span-2 bg-white rounded-lg shadow-md p-6">
                 <h3 class="text-2xl font-bold text-[#2B2D42] mb-4 text-center">La Gran Derrota: El Pecado y la Rebelión</h3>
                 <p class="max-w-4xl mx-auto text-center mb-8 text-gray-700">La derrota más significativa de David no fue contra un ejército extranjero, sino contra sí mismo. Su pecado con Betsabé y el asesinato de Urías desencadenó una cadena de tragedias familiares, culminando en la devastadora guerra civil liderada por su propio hijo, Absalón.</p>
@@ -120,6 +126,7 @@
                 </div>
             </div>
 
+            <!-- Bloque 4: Gráfico de Consolidación -->
             <div class="bg-white rounded-lg shadow-md p-6">
                 <h3 class="text-2xl font-bold text-[#2B2D42] mb-4">Redención y Consolidación</h3>
                 <p class="mb-4 text-gray-700">A pesar de la tragedia, David se arrepintió y recuperó el trono. Sus últimos años se dedicaron a consolidar el reino, reprimir revueltas y preparar el camino para la construcción del Templo bajo el reinado de su hijo Salomón. El reino unificado fue su mayor triunfo militar y político.</p>
@@ -128,6 +135,7 @@
                 </div>
             </div>
             
+            <!-- Bloque 5: Legado Numérico -->
             <div class="bg-white rounded-lg shadow-md p-6 flex flex-col justify-center">
                  <h3 class="text-2xl font-bold text-[#2B2D42] mb-6 text-center">El Legado de un Rey Guerrero</h3>
                  <div class="grid grid-cols-2 gap-6 text-center">
@@ -157,7 +165,9 @@
     </footer>
 
     <script>
+        // Asegura que el código se ejecute solo cuando el DOM esté completamente cargado.
         document.addEventListener('DOMContentLoaded', function() {
+            // Función para dividir las etiquetas de los gráficos en varias líneas si son demasiado largas.
             const wrapLabel = (label) => {
                 const maxLength = 16;
                 if (label.length <= maxLength) return label;
@@ -176,33 +186,40 @@
                 return lines;
             };
 
+            // Función de callback para Tooltip de Chart.js para mostrar etiquetas completas
             const tooltipTitleCallback = (tooltipItems) => {
                 const item = tooltipItems[0];
                 let label = item.chart.data.labels[item.dataIndex];
                 return Array.isArray(label) ? label.join(' ') : label;
             };
             
+            // Datos para el gráfico de barras de Victorias
             const victoriesData = {
                 labels: ['Filisteos en el Valle de Refaim', 'Moabitas', 'Hadadezer de Soba', 'Edomitas en el Valle de la Sal', 'Amonitas y Arameos'].map(wrapLabel),
                 datasets: [{
                     label: 'Escala de la Victoria (Estimada)',
-                    data: [8, 6, 7, 9, 10],
-                    backgroundColor: '#EF233C',
+                    data: [8, 6, 7, 9, 10], // Escala arbitraria de 1 a 10
+                    backgroundColor: '#EF233C', // Rojo claro (Victoria)
                     borderColor: '#D90429',
                     borderWidth: 1
                 }]
             };
 
+            // Configuración del gráfico de barras
             const victoriesConfig = {
                 type: 'bar',
                 data: victoriesData,
                 options: {
-                    indexAxis: 'y',
+                    indexAxis: 'y', // Hace las barras horizontales
                     responsive: true,
                     maintainAspectRatio: false,
                     scales: {
                         x: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Impacto Histórico (Escala 1-10)'
+                            }
                         }
                     },
                     plugins: {
@@ -218,21 +235,24 @@
                 }
             };
 
+            // Inicialización del gráfico de Victorias
             new Chart(
                 document.getElementById('victoriesChart'),
                 victoriesConfig
             );
 
+            // Datos para el gráfico de Donut de Composición del Reino
             const kingdomData = {
                 labels: ['Tribu de Judá', 'Tribus del Norte (Israel)', 'Territorios Conquistados (Edom, Moab, Amón)', 'Reinos Vasallos (Soba, Damasco)'].map(wrapLabel),
                 datasets: [{
                     label: 'Composición del Reino Unificado',
-                    data: [40, 35, 15, 10],
+                    data: [40, 35, 15, 10], // Porcentajes estimados
                     backgroundColor: ['#2B2D42', '#8D99AE', '#EF233C', '#D90429'],
                     hoverOffset: 4
                 }]
             };
 
+            // Configuración del gráfico de Donut
             const kingdomConfig = {
                 type: 'doughnut',
                 data: kingdomData,
@@ -245,13 +265,24 @@
                         },
                         tooltip: {
                             callbacks: {
-                                title: tooltipTitleCallback
+                                title: tooltipTitleCallback,
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += context.parsed + '%';
+                                    }
+                                    return label;
+                                }
                             }
                         }
                     }
                 }
             };
 
+            // Inicialización del gráfico del Reino
             new Chart(
                 document.getElementById('kingdomChart'),
                 kingdomConfig
