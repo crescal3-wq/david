@@ -157,104 +157,106 @@
     </footer>
 
     <script>
-        const wrapLabel = (label) => {
-            const maxLength = 16;
-            if (label.length <= maxLength) return label;
-            const words = label.split(' ');
-            const lines = [];
-            let currentLine = '';
-            words.forEach(word => {
-                if ((currentLine + ' ' + word).trim().length > maxLength) {
-                    lines.push(currentLine.trim());
-                    currentLine = word;
-                } else {
-                    currentLine = (currentLine + ' ' + word).trim();
-                }
-            });
-            if (currentLine) lines.push(currentLine);
-            return lines;
-        };
-
-        const tooltipTitleCallback = (tooltipItems) => {
-            const item = tooltipItems[0];
-            let label = item.chart.data.labels[item.dataIndex];
-            return Array.isArray(label) ? label.join(' ') : label;
-        };
-        
-        const victoriesData = {
-            labels: ['Filisteos en el Valle de Refaim', 'Moabitas', 'Hadadezer de Soba', 'Edomitas en el Valle de la Sal', 'Amonitas y Arameos'].map(wrapLabel),
-            datasets: [{
-                label: 'Escala de la Victoria (Estimada)',
-                data: [8, 6, 7, 9, 10],
-                backgroundColor: '#EF233C',
-                borderColor: '#D90429',
-                borderWidth: 1
-            }]
-        };
-
-        const victoriesConfig = {
-            type: 'bar',
-            data: victoriesData,
-            options: {
-                indexAxis: 'y',
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    x: {
-                        beginAtZero: true
+        document.addEventListener('DOMContentLoaded', function() {
+            const wrapLabel = (label) => {
+                const maxLength = 16;
+                if (label.length <= maxLength) return label;
+                const words = label.split(' ');
+                const lines = [];
+                let currentLine = '';
+                words.forEach(word => {
+                    if ((currentLine + ' ' + word).trim().length > maxLength) {
+                        lines.push(currentLine.trim());
+                        currentLine = word;
+                    } else {
+                        currentLine = (currentLine + ' ' + word).trim();
                     }
-                },
-                plugins: {
-                    legend: {
-                        display: false
+                });
+                if (currentLine) lines.push(currentLine);
+                return lines;
+            };
+
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                return Array.isArray(label) ? label.join(' ') : label;
+            };
+            
+            const victoriesData = {
+                labels: ['Filisteos en el Valle de Refaim', 'Moabitas', 'Hadadezer de Soba', 'Edomitas en el Valle de la Sal', 'Amonitas y Arameos'].map(wrapLabel),
+                datasets: [{
+                    label: 'Escala de la Victoria (Estimada)',
+                    data: [8, 6, 7, 9, 10],
+                    backgroundColor: '#EF233C',
+                    borderColor: '#D90429',
+                    borderWidth: 1
+                }]
+            };
+
+            const victoriesConfig = {
+                type: 'bar',
+                data: victoriesData,
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            beginAtZero: true
+                        }
                     },
-                    tooltip: {
-                        callbacks: {
-                            title: tooltipTitleCallback
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: tooltipTitleCallback
+                            }
                         }
                     }
                 }
-            }
-        };
+            };
 
-        new Chart(
-            document.getElementById('victoriesChart'),
-            victoriesConfig
-        );
+            new Chart(
+                document.getElementById('victoriesChart'),
+                victoriesConfig
+            );
 
-        const kingdomData = {
-            labels: ['Tribu de Judá', 'Tribus del Norte (Israel)', 'Territorios Conquistados (Edom, Moab, Amón)', 'Reinos Vasallos (Soba, Damasco)'].map(wrapLabel),
-            datasets: [{
-                label: 'Composición del Reino Unificado',
-                data: [40, 35, 15, 10],
-                backgroundColor: ['#2B2D42', '#8D99AE', '#EF233C', '#D90429'],
-                hoverOffset: 4
-            }]
-        };
+            const kingdomData = {
+                labels: ['Tribu de Judá', 'Tribus del Norte (Israel)', 'Territorios Conquistados (Edom, Moab, Amón)', 'Reinos Vasallos (Soba, Damasco)'].map(wrapLabel),
+                datasets: [{
+                    label: 'Composición del Reino Unificado',
+                    data: [40, 35, 15, 10],
+                    backgroundColor: ['#2B2D42', '#8D99AE', '#EF233C', '#D90429'],
+                    hoverOffset: 4
+                }]
+            };
 
-        const kingdomConfig = {
-            type: 'doughnut',
-            data: kingdomData,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                    },
-                    tooltip: {
-                        callbacks: {
-                            title: tooltipTitleCallback
+            const kingdomConfig = {
+                type: 'doughnut',
+                data: kingdomData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: tooltipTitleCallback
+                            }
                         }
                     }
                 }
-            }
-        };
+            };
 
-        new Chart(
-            document.getElementById('kingdomChart'),
-            kingdomConfig
-        );
+            new Chart(
+                document.getElementById('kingdomChart'),
+                kingdomConfig
+            );
+        });
     </script>
 </body>
 </html>
